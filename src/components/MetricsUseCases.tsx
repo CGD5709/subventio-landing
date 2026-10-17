@@ -187,7 +187,7 @@ export const MetricsUseCases: React.FC<MetricsUseCasesProps> = ({ onOpenDemoModa
                   onClick={onOpenDemoModal}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors cursor-pointer shadow-xs"
                 >
-                  <span>Solicitar Demo para este perfil</span>
+                  <span>Contáctanos para este perfil</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>

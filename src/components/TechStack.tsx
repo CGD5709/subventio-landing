@@ -104,19 +104,19 @@ export const TechStack: React.FC = () => {
   ];
 
   return (
-    <section id="tech-stack" className="py-20 lg:py-24 bg-slate-900 text-white border-b border-slate-800">
+    <section id="tech-stack" className="py-20 lg:py-24 bg-[#08090a] text-white border-b border-white/[0.08]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-blue-400 text-xs font-mono font-medium mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#18e299]/10 border border-[#18e299]/30 text-[#18e299] text-xs font-mono font-medium mb-4">
             <Layers className="w-3.5 h-3.5" />
             <span>Matriz Tecnológica de Producción</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
             Stack Tecnológico y Criterios de Selección de Componentes.
           </h2>
-          <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto font-normal">
+          <p className="text-sm sm:text-base text-neutral-400 max-w-2xl mx-auto font-normal">
             Cada tecnología ha sido seleccionada para garantizar robustez empresarial, tipado estricto, resiliencia ante cortes de red y aislamiento estricto de capas.
           </p>
         </div>
@@ -128,10 +128,10 @@ export const TechStack: React.FC = () => {
             return (
               <div 
                 key={idx}
-                className="bg-slate-950 rounded-2xl border border-slate-800 p-6 sm:p-8 flex flex-col justify-between shadow-xl text-left"
+                className="bg-[#101114] rounded-2xl border border-white/[0.08] p-6 sm:p-8 flex flex-col justify-between shadow-xl text-left hover:border-[#18e299]/30 transition-colors"
               >
                 <div>
-                  <div className="flex items-center justify-between pb-4 mb-6 border-b border-slate-800/80">
+                  <div className="flex items-center justify-between pb-4 mb-6 border-b border-white/[0.08]">
                     <div className="flex items-center gap-3">
                       <div className={`w-10 h-10 rounded-xl flex items-center justify-center border ${panel.color}`}>
                         <Icon className="w-5 h-5" />
@@ -140,7 +140,7 @@ export const TechStack: React.FC = () => {
                         <h3 className="font-bold text-white text-base">
                           {panel.title}
                         </h3>
-                        <span className="text-xs font-mono text-slate-400">
+                        <span className="text-xs font-mono text-neutral-400">
                           {panel.layer}
                         </span>
                       </div>
@@ -149,12 +149,12 @@ export const TechStack: React.FC = () => {
 
                   <div className="space-y-4">
                     {panel.items.map((item, i) => (
-                      <div key={i} className="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">
-                        <div className="text-xs font-mono font-bold text-blue-300 mb-1 flex items-center gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                      <div key={i} className="p-3 rounded-xl bg-black/60 border border-white/[0.06]">
+                        <div className="text-xs font-mono font-bold text-[#18e299] mb-1 flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#18e299]" />
                           <span>{item.tech}</span>
                         </div>
-                        <p className="text-xs text-slate-300 leading-relaxed font-normal">
+                        <p className="text-xs text-neutral-300 leading-relaxed font-normal">
                           {item.role}
                         </p>
                       </div>
@@ -162,7 +162,7 @@ export const TechStack: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono text-slate-400">
+                <div className="mt-6 pt-4 border-t border-white/[0.08] flex items-center justify-between text-xs font-mono text-neutral-400">
                   <span>Arquitectura Hexagonal Compatible</span>
                   <span className="text-emerald-400">Verificado</span>
                 </div>

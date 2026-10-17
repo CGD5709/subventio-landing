@@ -146,19 +146,19 @@ window.fetch = async (...args) => {
   ];
 
   return (
-    <section id="retos-tecnicos" className="py-20 lg:py-28 bg-slate-900 text-white border-b border-slate-800">
+    <section id="retos-tecnicos" className="py-20 lg:py-28 bg-[#08090a] text-white border-b border-white/[0.08]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-blue-400 text-xs font-mono font-medium mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#18e299]/10 border border-[#18e299]/30 text-[#18e299] text-xs font-mono font-medium mb-4">
             <Code2 className="w-3.5 h-3.5" />
             <span>Retos de Ingeniería del Software</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
             Retos Técnicos y Soluciones de Ingeniería.
           </h2>
-          <p className="text-sm sm:text-base text-slate-300 font-normal">
+          <p className="text-sm sm:text-base text-neutral-400 font-normal">
             Resolución rigurosa de desafíos de complejidad algorítmica, límites de sistemas de archivos de SO y ergonomía de concurrencia.
           </p>
         </div>
@@ -173,11 +173,11 @@ window.fetch = async (...args) => {
                 onClick={() => setActiveChallenge(idx)}
                 className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-blue-600/90 text-white border-blue-500 shadow-md shadow-blue-500/10'
-                    : 'bg-slate-950 text-slate-400 hover:text-slate-200 border-slate-800 hover:border-slate-700'
+                    ? 'bg-[#18e299]/15 text-white border-[#18e299]/40 shadow-md shadow-[#18e299]/10'
+                    : 'bg-[#101114] text-neutral-400 hover:text-neutral-200 border-white/[0.08] hover:border-white/[0.15]'
                 }`}
               >
-                <span className={`text-[11px] font-mono font-bold block mb-1 ${isSelected ? 'text-blue-100' : 'text-blue-400'}`}>
+                <span className={`text-[11px] font-mono font-bold block mb-1 ${isSelected ? 'text-[#18e299]' : 'text-neutral-500'}`}>
                   {c.badge}
                 </span>
                 <span className="text-xs font-semibold block line-clamp-2 leading-snug">
@@ -189,11 +189,11 @@ window.fetch = async (...args) => {
         </div>
 
         {/* Selected Challenge Deep Dive Card */}
-        <div className="bg-slate-950 rounded-2xl border border-slate-800 p-6 sm:p-8 text-left shadow-2xl">
+        <div className="bg-[#101114] rounded-2xl border border-white/[0.08] p-6 sm:p-8 text-left shadow-2xl">
           
-          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 pb-6 mb-6 border-b border-slate-800">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 pb-6 mb-6 border-b border-white/[0.08]">
             <div>
-              <span className="text-xs font-mono font-bold text-blue-400 bg-blue-950/80 px-2.5 py-1 rounded border border-blue-900/60 mb-2 inline-block">
+              <span className="text-xs font-mono font-bold text-[#18e299] bg-[#18e299]/10 px-2.5 py-1 rounded border border-[#18e299]/20 mb-2 inline-block">
                 {challenges[activeChallenge].badge}
               </span>
               <h3 className="text-xl sm:text-2xl font-bold text-white">
@@ -201,27 +201,27 @@ window.fetch = async (...args) => {
               </h3>
             </div>
 
-            <div className="text-xs font-mono text-slate-400 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
+            <div className="text-xs font-mono text-neutral-400 bg-[#121212] px-3 py-1.5 rounded-lg border border-white/[0.08]">
               {challenges[activeChallenge].fileLocation}
             </div>
           </div>
 
           {/* Challenge Description & Solution Explanation */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8 text-sm">
-            <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800/80">
+            <div className="p-4 rounded-xl bg-black/60 border border-white/[0.06]">
               <span className="text-xs font-mono font-bold uppercase tracking-wider text-rose-400 block mb-2">
                 Desafío Técnico
               </span>
-              <p className="text-slate-300 leading-relaxed font-normal text-xs sm:text-sm">
+              <p className="text-neutral-300 leading-relaxed font-normal text-xs sm:text-sm">
                 {challenges[activeChallenge].desafio}
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800/80">
+            <div className="p-4 rounded-xl bg-black/60 border border-white/[0.06]">
               <span className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 block mb-2">
                 Solución de Ingeniería
               </span>
-              <p className="text-slate-300 leading-relaxed font-normal text-xs sm:text-sm">
+              <p className="text-neutral-300 leading-relaxed font-normal text-xs sm:text-sm">
                 {challenges[activeChallenge].solucion}
               </p>
             </div>
@@ -229,14 +229,14 @@ window.fetch = async (...args) => {
 
           {/* Real Code Snippet Box with Copy Button */}
           <div>
-            <div className="flex items-center justify-between px-4 py-2.5 bg-slate-900 rounded-t-xl border-t border-x border-slate-800 text-xs font-mono text-slate-400">
+            <div className="flex items-center justify-between px-4 py-2.5 bg-[#0e0e0e] rounded-t-xl border-t border-x border-white/[0.08] text-xs font-mono text-neutral-400">
               <div className="flex items-center gap-2">
-                <Terminal className="w-3.5 h-3.5 text-blue-400" />
+                <Terminal className="w-3.5 h-3.5 text-[#18e299]" />
                 <span>{challenges[activeChallenge].fileLocation}</span>
               </div>
               <button
                 onClick={() => handleCopy(challenges[activeChallenge].code, activeChallenge)}
-                className="flex items-center gap-1.5 text-slate-300 hover:text-white px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 transition-colors cursor-pointer text-[11px]"
+                className="flex items-center gap-1.5 text-neutral-300 hover:text-white px-2.5 py-1 rounded bg-[#181818] hover:bg-[#222222] transition-colors cursor-pointer text-[11px]"
               >
                 {copiedIndex === activeChallenge ? (
                   <>
@@ -252,7 +252,7 @@ window.fetch = async (...args) => {
               </button>
             </div>
 
-            <pre className="p-4 sm:p-5 bg-slate-950 text-slate-200 rounded-b-xl border border-slate-800 overflow-x-auto text-xs font-mono leading-relaxed">
+            <pre className="p-4 sm:p-5 bg-[#0c0d10] text-neutral-200 rounded-b-xl border border-white/[0.08] overflow-x-auto text-xs font-mono leading-relaxed">
               <code>{challenges[activeChallenge].code}</code>
             </pre>
           </div>

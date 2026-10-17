@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   ArrowRight, 
-  CheckCircle2, 
-  Folder, 
-  FolderOpen, 
-  FileText, 
-  ShieldCheck, 
+  ChevronRight, 
+  FolderSync, 
+  Database, 
   Cloud, 
-  RefreshCw, 
-  Database
+  FileSpreadsheet, 
+  Layers
 } from 'lucide-react';
+import { MintlifyWaveCanvas } from './MintlifyWaveCanvas';
 
 interface HeroProps {
   onOpenDemoModal: () => void;
@@ -17,327 +16,285 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenDemoModal, onExploreWorkflow }) => {
-  const [selectedFolder, setSelectedFolder] = useState<string>('gastos');
-  const [isExporting, setIsExporting] = useState<boolean>(false);
-  const [exportProgress, setExportProgress] = useState<number>(100);
-
-  const triggerSimulatedExport = () => {
-    setIsExporting(true);
-    setExportProgress(12);
-    const interval = setInterval(() => {
-      setExportProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setIsExporting(false);
-          return 100;
-        }
-        return prev + 22;
-      });
-    }, 280);
-  };
+  const integrations = [
+    {
+      name: 'Google Drive',
+      badge: 'Nativo',
+      desc: 'Destino de carpetas y ficheros sellados',
+      badgeClass: 'text-[#065f46] bg-[#18e299]/15 border-[#18e299]/30',
+      icon: (
+        <svg className="w-5 h-5" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M12.01 1.5L4.5 14.5l3.75 6.5h15l-3.75-6.5z" opacity="0.3"/>
+          <path fill="#FBBC05" d="M8.25 21l-3.75-6.5L12 1.5l3.75 6.5z"/>
+          <path fill="#34A853" d="M12.01 1.5h7.49l3.75 6.5H15.76z"/>
+          <path fill="#4285F4" d="M15.76 8L12 1.5 8.25 8z"/>
+          <path fill="#EA4335" d="M4.5 14.5l3.75 6.5h7.51l-3.75-6.5z"/>
+        </svg>
+      )
+    },
+    {
+      name: 'Notion',
+      badge: 'Nativo',
+      desc: 'Esquemas de proyectos y base de datos',
+      badgeClass: 'text-[#065f46] bg-[#18e299]/15 border-[#18e299]/30',
+      icon: (
+        <div className="w-5 h-5 flex items-center justify-center font-serif font-black text-xs rounded bg-neutral-900 text-white">
+          N
+        </div>
+      )
+    },
+    {
+      name: 'Airtable',
+      badge: 'API Ready',
+      desc: 'Bases de datos y CRM de subvenciones',
+      badgeClass: 'text-amber-800 bg-amber-50 border-amber-200',
+      icon: (
+        <div className="w-5 h-5 flex items-center justify-center">
+          <span className="w-3.5 h-3.5 bg-amber-500 rounded-sm transform rotate-45 inline-block" />
+        </div>
+      )
+    },
+    {
+      name: 'PostgreSQL',
+      badge: 'JDBC Directo',
+      desc: 'Conexión a bases de datos relacionales',
+      badgeClass: 'text-blue-800 bg-blue-50 border-blue-200',
+      icon: <Database className="w-5 h-5 text-blue-600" />
+    },
+    {
+      name: 'SharePoint / OneDrive',
+      badge: 'API Ready',
+      desc: 'Entornos Microsoft 365 corporativos',
+      badgeClass: 'text-sky-800 bg-sky-50 border-sky-200',
+      icon: <Cloud className="w-5 h-5 text-sky-600" />
+    },
+    {
+      name: 'REST API & Webhooks',
+      badge: 'Extensible',
+      desc: 'Integración a medida con cualquier ERP',
+      badgeClass: 'text-purple-800 bg-purple-50 border-purple-200',
+      icon: <FileSpreadsheet className="w-5 h-5 text-purple-600" />
+    },
+    {
+      name: 'Dropbox Business',
+      badge: 'Hoja de ruta',
+      desc: 'Almacenamiento cloud colaborativo',
+      badgeClass: 'text-neutral-500 bg-neutral-100 border-neutral-200',
+      icon: <Layers className="w-5 h-5 text-neutral-400" />
+    },
+    {
+      name: 'Nextcloud / CIFS',
+      badge: 'Hoja de ruta',
+      desc: 'Servidores privados y carpetas en red',
+      badgeClass: 'text-neutral-500 bg-neutral-100 border-neutral-200',
+      icon: <FolderSync className="w-5 h-5 text-neutral-400" />
+    }
+  ];
 
   return (
-    <section id="inicio" className="relative pt-32 pb-20 lg:pt-36 lg:pb-28 overflow-hidden bg-gradient-to-b from-slate-50 via-white to-slate-50 border-b border-slate-200/60">
+    <section id="inicio" className="bg-white text-neutral-900 border-b border-neutral-200 relative">
       
-      {/* Background Subtle Gradient Blobs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[450px] bg-gradient-to-tr from-blue-100/50 via-indigo-50/40 to-transparent blur-3xl -z-10 pointer-events-none rounded-full" />
-      <div className="absolute top-12 right-10 w-96 h-96 bg-blue-50/60 blur-2xl -z-10 pointer-events-none rounded-full" />
+      {/* ========================================================================= */}
+      {/* 1. TOP HERO BLOCK: STRICTLY CONTAINS THE MINTLIFY GENERATIVE WAVE CANVAS  */}
+      {/* ========================================================================= */}
+      <div className="relative min-h-[88vh] lg:min-h-[96vh] overflow-hidden flex flex-col justify-between">
+        
+        {/* Mintlify Signature Ribbon Canvas (Strictly bounded inside this top block) */}
+        <MintlifyWaveCanvas />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        {/* Subtle Ambient Glow behind App Mockup adjusted for light theme */}
+        <div 
+          aria-hidden="true" 
+          className="pointer-events-none absolute right-[-5%] top-[15%] w-[750px] h-[550px] rounded-full blur-[120px] opacity-30 z-0"
+          style={{
+            background: 'radial-gradient(ellipse at center, rgba(24, 226, 153, 0.22) 0%, rgba(186, 255, 36, 0.14) 40%, rgba(12, 140, 94, 0.04) 70%, transparent 100%)'
+          }}
+        />
+
+        <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pt-32 sm:pt-36 lg:pt-44 pb-16 sm:pb-24 lg:pb-28 relative z-10 w-full flex-1 flex flex-col justify-between">
+        
+        {/* 2-COLUMN SPLIT GRID (EXACT MINTLIFY HERO LAYOUT) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-12 items-start">
           
-          {/* Left Column: Value Proposition */}
-          <div className="lg:col-span-6 text-left">
+          {/* ======================================================== */}
+          {/* LEFT COLUMN: PILL BADGE, EDITORIAL SERIF TITLE, CTAS     */}
+          {/* ======================================================== */}
+          <div className="lg:col-span-5 flex flex-col items-start text-left pt-2 lg:pt-10">
             
-            {/* Top Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 text-blue-800 text-xs font-semibold mb-6 shadow-2xs">
-              <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-              <span>Automatización Documental para Fondos Públicos</span>
-            </div>
+            {/* Mintlify Pill Badge: "Agent traffic 78.2917% >" style */}
+            <a 
+              href="#beneficios"
+              className="group inline-flex items-center gap-2 rounded-[4px] border border-neutral-200 bg-neutral-50/90 py-1 pl-2.5 pr-1.5 text-xs font-mono text-neutral-700 hover:border-[#18e299] hover:bg-neutral-100 transition-smooth mb-7 shadow-2xs"
+            >
+              <span className="text-neutral-600 font-medium">Ahorro por expediente</span>
+              <span className="inline-flex items-center gap-1 rounded-[2px] bg-[#18e299]/20 px-1.5 py-0.5 text-[#065f46] font-bold border border-[#18e299]/30">
+                <span>34 horas</span>
+                <span className="text-[10px] opacity-75">(85%)</span>
+              </span>
+              <ChevronRight className="w-3.5 h-3.5 text-neutral-400 group-hover:translate-x-0.5 transition-transform" />
+            </a>
 
-            {/* Main Headline H1 */}
-            <h1 className="text-4xl sm:text-5xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.15] mb-6">
-              Justifica tus subvenciones sin perderte en el papeleo administrativo.
+            {/* Mintlify Editorial Serif Title in Deep Dark Slate */}
+            <h1 className="font-serif text-[2.85rem] sm:text-[3.75rem] lg:text-[4.25rem] leading-[1.04] tracking-[-0.03em] font-normal text-neutral-950 mb-6">
+              La plataforma de<br />
+              justificación<br />
+              inteligente
             </h1>
 
-            {/* Subtitle */}
-            <p className="text-lg sm:text-xl text-slate-600 leading-relaxed font-normal mb-8">
-              Subventio automatiza la organización, validación y exportación de expedientes documentales para consultoras, fundaciones y entidades beneficiarias de fondos públicos. Conecta tus fuentes de datos, define tus reglas y genera estructuras de carpetas impecables listas para auditoría en cuestión de segundos.
+            {/* Subtitle with bold keywords */}
+            <p className="text-sm sm:text-base lg:text-[17px] text-neutral-600 leading-relaxed font-normal mb-10 max-w-lg">
+              Subventio automatiza la organización, validación y exportación de expedientes documentales para{' '}
+              <strong className="font-semibold text-neutral-900">consultoras</strong>,{' '}
+              <strong className="font-semibold text-neutral-900">fundaciones</strong> y{' '}
+              <strong className="font-semibold text-neutral-900">entidades beneficiarias</strong> de fondos públicos. Conecta tus fuentes de datos, define tus reglas y genera estructuras de carpetas impecables listas para auditoría en cuestión de segundos.
             </p>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 mb-5">
+            {/* Mintlify CTA Buttons */}
+            <div className="flex flex-wrap items-center gap-3 mb-14 sm:mb-16 w-full sm:w-auto">
               <button
                 onClick={onOpenDemoModal}
-                className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl text-base font-bold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/35 transition-all cursor-pointer group"
+                className="inline-flex items-center justify-center gap-1.5 rounded-[4px] bg-black text-white font-semibold text-sm px-4.5 py-2.5 hover:bg-neutral-800 active:scale-[0.97] transition-smooth cursor-pointer shadow-sm"
               >
-                <span>Solicitar Demostración Personalizada</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <span>Contáctanos</span>
+                <ChevronRight className="w-4 h-4" />
               </button>
 
               <button
                 onClick={onExploreWorkflow}
-                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-base font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 shadow-2xs hover:border-slate-400 transition-all cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 rounded-[4px] border border-neutral-200 bg-white hover:bg-neutral-50 text-neutral-800 font-medium text-sm px-4.5 py-2.5 transition-smooth cursor-pointer shadow-2xs"
               >
-                <span>Explorar el Flujo de Trabajo</span>
+                <span>Explorar Funcionalidades</span>
+                <ArrowRight className="w-3.5 h-3.5 text-neutral-500" />
               </button>
             </div>
 
-            {/* Trust Microcopy */}
-            <p className="text-xs text-slate-500 font-medium mb-8 flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-              <span>Sin necesidad de tarjeta de crédito. Implementación adaptada a convocatorias europeas, estatales y autonómicas.</span>
-            </p>
-
-            {/* Trust Tags */}
-            <div className="pt-6 border-t border-slate-200/80">
-              <p className="text-[11px] uppercase tracking-wider text-slate-600 font-bold mb-3">
-                Homologable para convocatorias oficiales
-              </p>
-              <div className="flex flex-wrap gap-2 text-xs font-semibold text-slate-600">
-                <span className="px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200">NextGenerationEU</span>
-                <span className="px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200">CDTI & MINECO</span>
-                <span className="px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200">Red.es / Kit Digital</span>
-                <span className="px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200">Plataformas Autonómicas</span>
-              </div>
+            {/* Trust microcopy */}
+            <div className="flex items-center gap-3 text-xs font-mono text-neutral-500 pt-8 border-t border-neutral-200/90 w-full mt-4">
+              <span className="flex items-center gap-1.5 text-neutral-700 font-medium">
+                <span className="w-2 h-2 rounded-full bg-[#18e299]" />
+                <span>Google Drive &amp; Notion Sync</span>
+              </span>
+              <span className="text-neutral-400">•</span>
+              <span>API Rest Extensible</span>
             </div>
+
           </div>
 
-          {/* Right Column: High-Fidelity Photorealistic Subventio Dashboard Mockup */}
-          <div className="lg:col-span-6 relative">
+          {/* ======================================================== */}
+          {/* RIGHT COLUMN: APPLICATION FRAME ALIGNED WITH SUBTITLE     */}
+          {/* ======================================================== */}
+          <div className="lg:col-span-7 relative w-full lg:w-[115%] lg:max-w-none mt-10 lg:mt-[290px] xl:mt-[310px] lg:translate-x-2">
             
-            {/* Visual Depth Glow */}
-            <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-600/20 via-indigo-500/20 to-teal-500/20 rounded-2xl blur-xl opacity-75 group-hover:opacity-100 transition duration-1000 -z-10" />
-
-            <div className="bg-white rounded-2xl border border-slate-200/90 shadow-2xl overflow-hidden transition-all text-left">
+            {/* The App Window Frame in Light Theme */}
+            <div className="rounded-[12px] border border-neutral-200/90 bg-white shadow-[0_25px_70px_rgba(0,0,0,0.08)] overflow-hidden animate-float-hero transition-smooth hover:border-neutral-300 relative">
               
-              {/* Mockup Window Header */}
-              <div className="bg-slate-900 px-4 py-3 border-b border-slate-800 flex items-center justify-between">
+              {/* Window Header Bar (macOS style window chrome) */}
+              <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-200 bg-neutral-50/90">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-rose-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-amber-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-                  <span className="ml-2 text-xs font-mono text-slate-400 font-medium hidden sm:inline">
-                    Subventio Studio v2.4 • Generador de Expedientes
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
+                  </div>
+                  <span className="text-neutral-500 font-mono text-[11px] ml-2 hidden sm:inline-block">
+                    app.subventio.es
                   </span>
                 </div>
-                <div className="flex items-center gap-2 text-[11px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/60">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                  <span>Sincronizado con Notion</span>
-                </div>
-              </div>
 
-              {/* Sub-header Bar: Template Config */}
-              <div className="bg-slate-50 px-4 py-2.5 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2 text-xs">
-                <div className="flex items-center gap-2 text-slate-700 font-semibold">
-                  <Database className="w-3.5 h-3.5 text-blue-600" />
-                  <span>Proyecto:</span>
-                  <span className="font-mono bg-blue-100/70 text-blue-900 px-2 py-0.5 rounded font-bold border border-blue-200">
-                    NextGen_Digitalizacion_2025
-                  </span>
-                </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-slate-500 text-[11px]">Plantilla:</span>
-                  <span className="font-medium text-slate-800 bg-white px-2 py-0.5 rounded border border-slate-200 shadow-2xs">
-                    Orden TED/1025/2023
+                  <span className="text-[10px] font-mono text-[#065f46] bg-[#18e299]/15 px-2.5 py-0.5 rounded border border-[#18e299]/30 font-semibold">
+                    Captura del Programa
                   </span>
                 </div>
               </div>
 
-              {/* Mockup Interior: 2-column studio layout */}
-              <div className="grid grid-cols-1 md:grid-cols-12 min-h-[380px] bg-slate-50/50">
-                
-                {/* Left pane: Dynamic Folder Tree */}
-                <div className="md:col-span-7 p-4 border-r border-slate-200 bg-white">
-                  <div className="flex items-center justify-between mb-3 pb-2 border-b border-slate-100">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
-                      Árbol Documental Dinámico
-                    </span>
-                    <span className="text-[10px] font-mono bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">
-                      Autogenerado
+              {/* Direct Image Slot */}
+              <div className="relative aspect-[1080/720] min-h-[460px] sm:min-h-[540px] lg:min-h-[580px] xl:min-h-[640px] bg-neutral-100 overflow-hidden group flex items-center justify-center">
+                <img 
+                  src="/app-preview.svg" 
+                  alt="Captura de pantalla de la interfaz de Subventio" 
+                  className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.01]" 
+                />
+
+                {/* Mintlify signature bottom gradient fade-out starting late (85%) so full UI is visible */}
+                <div 
+                  aria-hidden="true" 
+                  className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-b from-transparent via-transparent 85% to-white/95" 
+                />
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+      </div>
+
+      {/* ========================================================================= */}
+      {/* 2. MINTLIFY BOTTOM SECTION: INTEGRATION ECOSYSTEM (GOOGLE DRIVE, NOTION)  */}
+      {/* ========================================================================= */}
+      <div className="relative z-20 border-t border-neutral-200/90 bg-neutral-50/60">
+        <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 items-stretch">
+          
+          {/* Left Block (Mintlify style: Integration Value Prop) */}
+          <div className="lg:col-span-4 p-6 sm:p-8 lg:p-10 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-neutral-200/90 text-left">
+            <div>
+              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-[#18e299]/15 border border-[#18e299]/30 text-[#065f46] text-xs font-mono font-medium mb-3">
+                <span>Ecosistema de Integración</span>
+              </div>
+              <h2 className="text-xl/6 sm:text-2xl/7 font-medium tracking-[-0.01em] text-neutral-900">
+                Conecta de forma nativa con tus{' '}
+                <strong className="font-semibold text-neutral-950">fuentes de datos</strong> y almacenamiento cloud.
+              </h2>
+              <p className="text-xs text-neutral-600 mt-3 leading-relaxed">
+                Extracción automática desde Notion y bases de datos relacionales con exportación directa a Google Drive y repositorios corporativos.
+              </p>
+            </div>
+
+            <a
+              href="#funcionalidades"
+              className="mt-6 group inline-flex items-center gap-1.5 rounded-[4px] bg-black text-white font-semibold text-xs px-3.5 py-2 hover:bg-neutral-800 transition-smooth w-fit cursor-pointer shadow-xs"
+            >
+              <span>Explorar conectores</span>
+              <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            </a>
+          </div>
+
+          {/* Right Block: 8 Integration Cards in Grid */}
+          <div className="lg:col-span-8 p-3 sm:p-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 h-full">
+              {integrations.map((item, idx) => (
+                <div 
+                  key={idx}
+                  className="relative flex flex-col items-start justify-between p-3.5 rounded-[6px] border border-neutral-200 bg-white text-left min-h-[105px] shadow-2xs hover:border-[#18e299] hover:shadow-sm transition-all"
+                >
+                  <div className="flex items-center justify-between w-full mb-2">
+                    <div className="p-1.5 rounded bg-neutral-50 border border-neutral-100">
+                      {item.icon}
+                    </div>
+                    <span className={`text-[9px] font-mono font-semibold px-1.5 py-0.5 rounded border ${item.badgeClass}`}>
+                      {item.badge}
                     </span>
                   </div>
 
-                  {/* Folder Structure */}
-                  <div className="space-y-1 font-mono text-xs">
-                    
-                    {/* Root Folder */}
-                    <div className="flex items-center gap-1.5 text-slate-800 font-bold p-1 rounded hover:bg-slate-50">
-                      <FolderOpen className="w-4 h-4 text-amber-500 shrink-0" />
-                      <span className="truncate">EXP_2025_FEDER_DIGITAL/</span>
-                    </div>
-
-                    {/* Level 1: Memoria Tecnica */}
-                    <div className="pl-4">
-                      <div className="flex items-center gap-1.5 text-slate-600 p-1 rounded hover:bg-slate-50">
-                        <Folder className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-                        <span className="truncate">01_Memoria_Tecnica/</span>
-                      </div>
-                      <div className="pl-5 flex items-center gap-1.5 text-slate-500 text-[11px] py-0.5">
-                        <FileText className="w-3 h-3 text-blue-500 shrink-0" />
-                        <span className="truncate">Memoria_Actividades_Firmada.pdf</span>
-                        <span className="text-[9px] text-emerald-600 font-bold bg-emerald-50 px-1 rounded ml-auto">OK</span>
-                      </div>
-                    </div>
-
-                    {/* Level 1: Justificantes Gasto (Selected Active Folder) */}
-                    <div className="pl-4">
-                      <div 
-                        onClick={() => setSelectedFolder('gastos')}
-                        className={`flex items-center justify-between gap-1.5 p-1 rounded cursor-pointer transition-colors ${
-                          selectedFolder === 'gastos' ? 'bg-blue-50 text-blue-900 font-semibold' : 'text-slate-700 hover:bg-slate-50'
-                        }`}
-                      >
-                        <div className="flex items-center gap-1.5 truncate">
-                          <FolderOpen className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-                          <span className="truncate">02_Justificantes_Gasto/</span>
-                        </div>
-                        <span className="text-[9px] bg-blue-200/70 text-blue-800 px-1 rounded font-sans">
-                          124 docs
-                        </span>
-                      </div>
-
-                      {/* Nested Dynamic Folders with Notion Variables */}
-                      <div className="pl-5 space-y-1 mt-1">
-                        <div className="flex items-center gap-1.5 text-indigo-700 bg-indigo-50/60 p-1 rounded border border-indigo-100 text-[11px]">
-                          <Folder className="w-3 h-3 text-indigo-500 shrink-0" />
-                          <span className="font-bold">
-                            {'{Proveedor}'}_{'{NumFactura}'}/
-                          </span>
-                        </div>
-                        
-                        {/* Concrete rendered files */}
-                        <div className="pl-4 space-y-0.5 text-[11px] text-slate-600">
-                          <div className="flex items-center gap-1.5 py-0.5">
-                            <FileText className="w-3 h-3 text-blue-500 shrink-0" />
-                            <span className="truncate text-slate-700 font-medium">Factura_FAC2025_001.pdf</span>
-                          </div>
-                          <div className="flex items-center gap-1.5 py-0.5">
-                            <FileText className="w-3 h-3 text-emerald-600 shrink-0" />
-                            <span className="truncate text-slate-700 font-medium">Comprobante_Pago_Transferencia.pdf</span>
-                          </div>
-                          <div className="flex items-center gap-1.5 py-0.5">
-                            <FileText className="w-3 h-3 text-violet-500 shrink-0" />
-                            <span className="truncate text-slate-700 font-medium">Certificado_Corriente_AEAT.pdf</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Level 1: Costes de Personal */}
-                    <div className="pl-4 pt-1">
-                      <div className="flex items-center gap-1.5 text-slate-600 p-1 rounded hover:bg-slate-50">
-                        <Folder className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-                        <span className="truncate">03_Personal_Nomina_RLT/</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Right pane: Inspector, Variables, Sanitization & Drive Export */}
-                <div className="md:col-span-5 p-4 flex flex-col justify-between bg-slate-50/60">
-                  
                   <div>
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-2">
-                      Variables de Origen (Notion)
+                    <span className="font-bold text-xs text-neutral-900 font-sans block mb-0.5">
+                      {item.name}
                     </span>
-                    <div className="flex flex-wrap gap-1.5 mb-4">
-                      <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono font-medium bg-indigo-100 text-indigo-800 border border-indigo-200">
-                        {'{Proyecto}'}
-                      </span>
-                      <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono font-medium bg-indigo-100 text-indigo-800 border border-indigo-200">
-                        {'{Proveedor}'}
-                      </span>
-                      <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono font-medium bg-indigo-100 text-indigo-800 border border-indigo-200">
-                        {'{NumFactura}'}
-                      </span>
-                      <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono font-medium bg-indigo-100 text-indigo-800 border border-indigo-200">
-                        {'{Importe}'}
-                      </span>
-                    </div>
-
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-2">
-                      Conmutadores de Validación
+                    <span className="text-[10px] text-neutral-500 leading-tight line-clamp-2 block">
+                      {item.desc}
                     </span>
-                    
-                    {/* Live Green Validation Switches */}
-                    <div className="space-y-2 mb-5">
-                      <div className="flex items-center justify-between p-2 rounded-lg bg-white border border-slate-200 text-xs shadow-2xs">
-                        <div className="flex items-center gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                          <span className="font-medium text-slate-700">Sanitización UTF-8 / Tildes</span>
-                        </div>
-                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                      </div>
-
-                      <div className="flex items-center justify-between p-2 rounded-lg bg-white border border-slate-200 text-xs shadow-2xs">
-                        <div className="flex items-center gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                          <span className="font-medium text-slate-700">Límite MAX_PATH (80 ch) + Hash</span>
-                        </div>
-                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                      </div>
-
-                      <div className="flex items-center justify-between p-2 rounded-lg bg-white border border-slate-200 text-xs shadow-2xs">
-                        <div className="flex items-center gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                          <span className="font-medium text-slate-700">Prevención Nombres NTFS/POSIX</span>
-                        </div>
-                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                      </div>
-                    </div>
                   </div>
-
-                  {/* Bottom: Google Drive Cloud Export Monitor */}
-                  <div className="p-3 bg-white rounded-xl border border-slate-200 shadow-2xs">
-                    <div className="flex items-center justify-between mb-1.5">
-                      <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800">
-                        <Cloud className="w-3.5 h-3.5 text-blue-600" />
-                        <span>Despliegue a Google Drive</span>
-                      </div>
-                      <span className="text-[10px] font-mono text-emerald-600 font-bold">
-                        {exportProgress}% Completado
-                      </span>
-                    </div>
-
-                    {/* Progress Bar */}
-                    <div className="w-full bg-slate-100 rounded-full h-2 mb-2 overflow-hidden border border-slate-200/50">
-                      <div 
-                        className="bg-gradient-to-r from-blue-600 to-emerald-500 h-2 rounded-full transition-all duration-300"
-                        style={{ width: `${exportProgress}%` }}
-                      />
-                    </div>
-
-                    <div className="flex items-center justify-between text-[11px] text-slate-500">
-                      <span>142 de 142 ficheros validados</span>
-                      <button
-                        onClick={triggerSimulatedExport}
-                        disabled={isExporting}
-                        className="text-blue-600 hover:text-blue-700 font-semibold cursor-pointer flex items-center gap-1"
-                      >
-                        <RefreshCw className={`w-3 h-3 ${isExporting ? 'animate-spin' : ''}`} />
-                        <span>Re-exportar</span>
-                      </button>
-                    </div>
-                  </div>
-
                 </div>
-              </div>
-
-              {/* Status Footer Bar */}
-              <div className="bg-slate-900 text-slate-300 px-4 py-2 text-[11px] font-mono flex items-center justify-between">
-                <div className="flex items-center gap-2 truncate">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-                  <span className="truncate">Destino: Google Drive / Expedientes_Auditoria_2025/</span>
-                </div>
-                <span className="text-slate-400 shrink-0 font-sans font-medium">Audit Ready</span>
-              </div>
-
+              ))}
             </div>
           </div>
 
         </div>
       </div>
+
     </section>
   );
 };

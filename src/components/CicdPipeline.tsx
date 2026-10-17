@@ -57,19 +57,19 @@ export const CicdPipeline: React.FC = () => {
   ];
 
   return (
-    <section id="cicd" className="py-20 lg:py-24 bg-slate-950 text-white border-b border-slate-800">
+    <section id="cicd" className="py-20 lg:py-24 bg-[#08090a] text-white border-b border-white/[0.08]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-blue-400 text-xs font-mono font-medium mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#18e299]/10 border border-[#18e299]/30 text-[#18e299] text-xs font-mono font-medium mb-4">
             <Workflow className="w-3.5 h-3.5" />
-            <span>Automatización DevOps & Despliegue</span>
+            <span>Automatización DevOps &amp; Despliegue</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4 text-white">
             Canalización de Integración y Despliegue Continuo (CI/CD).
           </h2>
-          <p className="text-sm sm:text-base text-slate-300 font-normal">
+          <p className="text-sm sm:text-base text-neutral-400 font-normal">
             Garantía de entrega continua sin regresiones desde el commit local hasta los entornos de alta disponibilidad en producción.
           </p>
         </div>
@@ -81,15 +81,15 @@ export const CicdPipeline: React.FC = () => {
             return (
               <div 
                 key={idx}
-                className="bg-slate-900 rounded-2xl border border-slate-800 p-6 flex flex-col justify-between shadow-xl relative group hover:border-blue-500/50 transition-colors"
+                className="bg-[#101114] rounded-2xl border border-white/[0.08] p-6 flex flex-col justify-between shadow-xl relative group hover:border-[#18e299]/40 transition-colors"
               >
                 <div>
                   <div className="flex items-center justify-between mb-5">
-                    <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-blue-950 text-blue-400 border border-blue-900/60">
+                    <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#18e299]/10 text-[#18e299] border border-[#18e299]/20">
                       Fase {phase.num}
                     </span>
-                    <div className="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center text-slate-300">
-                      <Icon className="w-4 h-4 text-blue-400" />
+                    <div className="w-8 h-8 rounded-lg bg-black/50 border border-white/[0.06] flex items-center justify-center text-[#18e299]">
+                      <Icon className="w-4 h-4 text-[#18e299]" />
                     </div>
                   </div>
 
@@ -97,7 +97,7 @@ export const CicdPipeline: React.FC = () => {
                     {phase.title}
                   </h3>
 
-                  <ul className="space-y-3 text-xs text-slate-300">
+                  <ul className="space-y-3 text-xs text-neutral-300">
                     {phase.items.map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
                         <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
@@ -107,7 +107,7 @@ export const CicdPipeline: React.FC = () => {
                   </ul>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-slate-800/80 text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                <div className="mt-6 pt-4 border-t border-white/[0.08] text-[11px] font-mono text-neutral-400 flex items-center justify-between">
                   <span>{phase.badge}</span>
                   <span className="text-emerald-400">Automático</span>
                 </div>

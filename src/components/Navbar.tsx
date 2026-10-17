@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  FileText, 
   Menu, 
   X, 
-  ArrowRight, 
-  Cpu, 
-  ChevronRight
+  ChevronDown
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -15,33 +12,30 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ onOpenDemoModal }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('inicio');
+  const [isDarkSection, setIsDarkSection] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 10);
+
+      // Light theme on initial/top area
+      if (scrollY < 200) {
+        setIsDarkSection(false);
+        return;
       }
 
-      const sections = ['inicio', 'solucion', 'caracteristicas', 'metodologia', 'casos-de-uso', 'arquitectura', 'demo'];
-      const scrollPos = window.scrollY + 200;
-
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPos >= top && scrollPos < top + height) {
-            setActiveSection(section);
-            break;
-          }
-        }
+      // Check if we have scrolled into the dark Technology / Architecture section
+      const techEl = document.getElementById('tecnologia');
+      if (techEl) {
+        const rect = techEl.getBoundingClientRect();
+        // Turn dark when the transition section reaches under the navbar
+        setIsDarkSection(rect.top <= 20);
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -56,191 +50,159 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemoModal }) => {
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-xs py-3.5' 
-          : 'bg-white/60 backdrop-blur-xs border-b border-slate-100 py-4'
+        isDarkSection
+          ? 'bg-[#08090a]/90 backdrop-blur-md border-b border-white/[0.08] text-white shadow-lg'
+          : isScrolled
+            ? 'bg-white/90 backdrop-blur-md border-b border-black/[0.08] text-neutral-900 shadow-xs'
+            : 'bg-white/80 backdrop-blur-sm border-b border-black/[0.06] text-neutral-900'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          
-          {/* Logo Brand */}
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 h-16 flex items-center justify-between">
+        
+        {/* Left: Brand Wordmark (Mintlify style: green icon + lowercase name) */}
+        <div className="flex items-center gap-8">
           <button 
             onClick={() => scrollTo('inicio')} 
-            className="flex items-center gap-3 text-left group cursor-pointer focus:outline-hidden"
+            className="flex items-center gap-2.5 text-left group cursor-pointer focus:outline-none"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 via-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
-              <FileText className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-extrabold text-xl tracking-tight text-slate-900 group-hover:text-blue-700 transition-colors">
-                  Subventio
-                </span>
-                <span className="hidden sm:inline-block px-2 py-0.5 text-[10px] font-semibold tracking-wide uppercase bg-blue-50 text-blue-700 border border-blue-200/60 rounded-full">
-                  B2B SaaS
-                </span>
-              </div>
-              <p className="text-[11px] text-slate-700 font-medium tracking-tight">
-                by El Salto Adelante
-              </p>
-            </div>
+            {/* Mintlify Logo Icon shape */}
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z" fill="#0C8C5E"/>
+              <path d="M14.5 7C14.5 7 18 10.5 18 14C18 16.2 16.2 18 14 18C11.8 18 10 16.2 10 14C10 11.8 12.5 8 14.5 7Z" fill="#18E299"/>
+              <circle cx="9" cy="9" r="3" fill="#BAFF24" />
+            </svg>
+            <span className={`font-semibold text-base tracking-tight transition-colors ${
+              isDarkSection ? 'text-white group-hover:text-[#18e299]' : 'text-neutral-950 group-hover:text-[#0c8c5e]'
+            }`}>
+              subventio
+            </span>
           </button>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
-            <button
+          {/* Desktop Navigation Menu */}
+          <nav className={`hidden lg:flex items-center gap-6 text-sm font-medium transition-colors ${
+            isDarkSection ? 'text-neutral-300' : 'text-neutral-600'
+          }`}>
+            <button 
+              onClick={() => scrollTo('funcionalidades')}
+              className={`flex items-center gap-1 transition-colors cursor-pointer py-1 ${
+                isDarkSection ? 'hover:text-white' : 'hover:text-black'
+              }`}
+            >
+              <span>Capacidades</span>
+              <ChevronDown className="w-3.5 h-3.5 opacity-60" />
+            </button>
+
+            <button 
+              onClick={() => scrollTo('beneficios')}
+              className={`flex items-center gap-1 transition-colors cursor-pointer py-1 ${
+                isDarkSection ? 'hover:text-white' : 'hover:text-black'
+              }`}
+            >
+              <span>Ventajas &amp; ROI</span>
+              <ChevronDown className="w-3.5 h-3.5 opacity-60" />
+            </button>
+
+            <button 
               onClick={() => scrollTo('solucion')}
-              className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors cursor-pointer ${
-                activeSection === 'solucion' 
-                  ? 'text-blue-600 bg-blue-50/80' 
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+              className={`transition-colors cursor-pointer py-1 ${
+                isDarkSection ? 'hover:text-white' : 'hover:text-black'
               }`}
             >
-              Solución
+              Comparativa
             </button>
-            <button
-              onClick={() => scrollTo('caracteristicas')}
-              className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors cursor-pointer ${
-                activeSection === 'caracteristicas' 
-                  ? 'text-blue-600 bg-blue-50/80' 
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+
+            <button 
+              onClick={() => scrollTo('tecnologia')}
+              className={`transition-colors cursor-pointer py-1 flex items-center gap-1.5 ${
+                isDarkSection ? 'text-[#18e299] font-semibold' : 'text-emerald-700 hover:text-black font-semibold'
               }`}
             >
-              Características
-            </button>
-            <button
-              onClick={() => scrollTo('metodologia')}
-              className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors cursor-pointer ${
-                activeSection === 'metodologia' 
-                  ? 'text-blue-600 bg-blue-50/80' 
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-              }`}
-            >
-              Metodología
-            </button>
-            <button
-              onClick={() => scrollTo('casos-de-uso')}
-              className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors cursor-pointer ${
-                activeSection === 'casos-de-uso' 
-                  ? 'text-blue-600 bg-blue-50/80' 
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-              }`}
-            >
-              Casos de Uso
+              <span className="w-1.5 h-1.5 rounded-full bg-[#18e299]" />
+              <span>Tecnología</span>
             </button>
           </nav>
-
-          {/* Right Action Buttons */}
-          <div className="hidden md:flex items-center gap-3">
-            {/* Technical Link */}
-            <button
-              onClick={() => scrollTo('arquitectura')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all cursor-pointer ${
-                activeSection === 'arquitectura'
-                  ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
-                  : 'text-slate-700 bg-slate-100/80 border-slate-300 hover:bg-slate-200/80 hover:text-slate-900'
-              }`}
-              title="Acceder a la documentación técnica de arquitectura e ingeniería"
-            >
-              <Cpu className="w-3.5 h-3.5 text-blue-600" />
-              <span>Para Desarrolladores</span>
-            </button>
-
-            {/* Client Login Mock */}
-            <button
-              onClick={() => alert("Portal de clientes en producción: el acceso directo se proporciona a través del espacio corporativo configurado para su entidad.")}
-              className="text-xs font-semibold text-slate-600 hover:text-slate-900 px-2 py-1.5 rounded-md hover:bg-slate-100 transition-colors cursor-pointer"
-            >
-              Iniciar Sesión
-            </button>
-
-            {/* Primary CTA */}
-            <button
-              onClick={onOpenDemoModal}
-              className="flex items-center gap-2 px-4 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg shadow-sm shadow-blue-500/20 hover:shadow-blue-500/30 transition-all cursor-pointer group"
-            >
-              <span>Solicitar Demo</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-            </button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center gap-2">
-            <button
-              onClick={() => scrollTo('arquitectura')}
-              className="px-2.5 py-1 text-xs font-semibold text-slate-700 bg-slate-100 border border-slate-200 rounded-md"
-            >
-              Arquitectura
-            </button>
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100"
-              aria-label="Menú principal"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
         </div>
 
-        {/* Mobile Dropdown Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden mt-3 pt-3 pb-4 border-t border-slate-200 bg-white/95 rounded-2xl p-4 shadow-xl">
-            <div className="flex flex-col gap-2">
-              <button
-                onClick={() => scrollTo('solucion')}
-                className="flex items-center justify-between p-2.5 text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg text-left"
-              >
-                <span>Solución</span>
-                <ChevronRight className="w-4 h-4 text-slate-400" />
-              </button>
-              <button
-                onClick={() => scrollTo('caracteristicas')}
-                className="flex items-center justify-between p-2.5 text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg text-left"
-              >
-                <span>Características</span>
-                <ChevronRight className="w-4 h-4 text-slate-400" />
-              </button>
-              <button
-                onClick={() => scrollTo('metodologia')}
-                className="flex items-center justify-between p-2.5 text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg text-left"
-              >
-                <span>Metodología (Cómo Funciona)</span>
-                <ChevronRight className="w-4 h-4 text-slate-400" />
-              </button>
-              <button
-                onClick={() => scrollTo('casos-de-uso')}
-                className="flex items-center justify-between p-2.5 text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg text-left"
-              >
-                <span>Casos de Uso</span>
-                <ChevronRight className="w-4 h-4 text-slate-400" />
-              </button>
-              <button
-                onClick={() => scrollTo('arquitectura')}
-                className="flex items-center justify-between p-2.5 text-sm font-semibold text-slate-900 bg-slate-100 hover:bg-slate-200 rounded-lg text-left mt-2"
-              >
-                <div className="flex items-center gap-2">
-                  <Cpu className="w-4 h-4 text-blue-600" />
-                  <span>Para Desarrolladores / Arquitectura</span>
-                </div>
-                <ChevronRight className="w-4 h-4 text-slate-400" />
-              </button>
+        {/* Right Action Buttons */}
+        <div className="hidden sm:flex items-center gap-4">
+          <button
+            onClick={onOpenDemoModal}
+            className={`inline-flex items-center justify-center rounded-[4px] font-semibold text-xs px-3.5 py-2 transition-all cursor-pointer shadow-sm ${
+              isDarkSection
+                ? 'bg-white text-black hover:bg-neutral-200 active:scale-[0.98]'
+                : 'bg-black text-white hover:bg-neutral-800 active:scale-[0.98]'
+            }`}
+          >
+            <span>Contáctanos</span>
+          </button>
+        </div>
 
-              <div className="pt-3 mt-2 border-t border-slate-100 flex flex-col gap-2">
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onOpenDemoModal();
-                  }}
-                  className="w-full py-2.5 text-center text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm"
-                >
-                  Solicitar Demostración Personalizada
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+        {/* Mobile menu trigger */}
+        <div className="sm:hidden flex items-center gap-2">
+          <button
+            onClick={onOpenDemoModal}
+            className={`rounded-[4px] font-semibold text-xs px-3 py-1.5 ${
+              isDarkSection ? 'bg-white text-black' : 'bg-black text-white'
+            }`}
+          >
+            Contacto
+          </button>
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className={`p-1.5 ${isDarkSection ? 'text-neutral-400 hover:text-white' : 'text-neutral-600 hover:text-black'}`}
+            aria-label="Abrir menú"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
+
       </div>
+
+      {/* Mobile Menu Dropdown */}
+      {mobileMenuOpen && (
+        <div className={`sm:hidden px-5 py-4 border-b space-y-3 text-sm font-sans animate-fadeIn ${
+          isDarkSection 
+            ? 'bg-[#101114] border-white/[0.08] text-neutral-300' 
+            : 'bg-white border-neutral-200 text-neutral-800 shadow-lg'
+        }`}>
+          <button
+            onClick={() => scrollTo('funcionalidades')}
+            className="block w-full text-left py-1.5 hover:text-[#18e299]"
+          >
+            Capacidades (Scotch POS)
+          </button>
+          <button
+            onClick={() => scrollTo('beneficios')}
+            className="block w-full text-left py-1.5 hover:text-[#18e299]"
+          >
+            Ventajas e Impacto (ROI)
+          </button>
+          <button
+            onClick={() => scrollTo('solucion')}
+            className="block w-full text-left py-1.5 hover:text-[#18e299]"
+          >
+            Antes vs. Después
+          </button>
+          <button
+            onClick={() => scrollTo('tecnologia')}
+            className="block w-full text-left py-1.5 text-[#0c8c5e] dark:text-[#18e299] font-bold"
+          >
+            Tecnología
+          </button>
+          <button
+            onClick={() => {
+              setMobileMenuOpen(false);
+              onOpenDemoModal();
+            }}
+            className={`w-full mt-2 py-2 rounded-[4px] font-semibold text-xs text-center ${
+              isDarkSection ? 'bg-white text-black' : 'bg-black text-white'
+            }`}
+          >
+            Contáctanos
+          </button>
+        </div>
+      )}
+
     </header>
   );
 };

@@ -20,7 +20,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenDemoModal }) => {
   };
 
   return (
-    <footer className="bg-slate-950 text-slate-400 text-xs border-t border-slate-800">
+    <footer className="bg-[#08090a] text-neutral-400 text-xs border-t border-white/[0.08]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12 text-left">
@@ -28,179 +28,156 @@ export const Footer: React.FC<FooterProps> = ({ onOpenDemoModal }) => {
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-md">
-                <FileText className="w-5 h-5 text-white" />
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#0c8c5e] to-[#18e299] flex items-center justify-center text-black font-extrabold shadow-md">
+                <FileText className="w-4 h-4 text-black" />
               </div>
               <div>
-                <span className="font-extrabold text-lg tracking-tight text-white">
+                <span className="font-extrabold text-base tracking-tight text-white">
                   Subventio
                 </span>
-                <p className="text-[11px] text-slate-500 font-medium">
-                  by El Salto Adelante
+                <p className="text-[10px] text-neutral-500 font-mono">
+                  Automatización Documental Inteligente
                 </p>
               </div>
             </div>
 
-            <p className="text-slate-400 text-xs leading-relaxed max-w-sm">
-              Plataforma de automatización, sanitización y exportación documental para la justificación de subvenciones públicas, fondos NextGenerationEU y auditorías reglamentarias.
+            <p className="text-neutral-400 text-xs leading-relaxed max-w-sm">
+              Plataforma de generación, sanitización y exportación de expedientes para convocatorias públicas, fondos NextGenerationEU y auditorías reglamentarias.
             </p>
 
             <div className="flex items-center gap-3 pt-2">
-              <div className="flex items-center gap-1.5 text-[11px] text-slate-300 bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <div className="flex items-center gap-1.5 text-[11px] text-neutral-300 bg-white/[0.03] px-2.5 py-1 rounded-lg border border-white/[0.08]">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#18e299]" />
                 <span>RGPD Compliant</span>
               </div>
-              <div className="flex items-center gap-1.5 text-[11px] text-slate-300 bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">
-                <Lock className="w-3.5 h-3.5 text-blue-400" />
+              <div className="flex items-center gap-1.5 text-[11px] text-neutral-300 bg-white/[0.03] px-2.5 py-1 rounded-lg border border-white/[0.08]">
+                <Lock className="w-3.5 h-3.5 text-[#18e299]" />
                 <span>OAuth 2.0 Security</span>
               </div>
             </div>
           </div>
 
           {/* Links: Vista Comercial */}
-          <div>
-            <h4 className="text-white font-bold text-xs uppercase tracking-wider mb-4 font-mono">
-              Solución Comercial
+          <div className="space-y-3">
+            <h4 className="font-bold text-white text-xs uppercase tracking-wider font-mono">
+              Plataforma
             </h4>
-            <ul className="space-y-2.5">
+            <ul className="space-y-2">
               <li>
                 <button 
-                  onClick={() => scrollTo('inicio')} 
-                  className="hover:text-white transition-colors cursor-pointer text-left"
+                  onClick={() => scrollTo('beneficios')} 
+                  className="hover:text-white transition-colors cursor-pointer"
                 >
-                  Inicio
+                  Ventajas y Ahorro
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => scrollTo('funcionalidades')} 
+                  className="hover:text-white transition-colors cursor-pointer"
+                >
+                  Capacidades y Fases
                 </button>
               </li>
               <li>
                 <button 
                   onClick={() => scrollTo('solucion')} 
-                  className="hover:text-white transition-colors cursor-pointer text-left"
+                  className="hover:text-white transition-colors cursor-pointer"
                 >
-                  Problema vs. Solución
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => scrollTo('caracteristicas')} 
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Características Principales
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => scrollTo('metodologia')} 
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Metodología (3 Pasos)
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => scrollTo('casos-de-uso')} 
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Métricas y Casos de Uso
+                  Comparativa de Costes
                 </button>
               </li>
               <li>
                 <button 
                   onClick={onOpenDemoModal} 
-                  className="text-blue-400 hover:text-blue-300 font-semibold transition-colors cursor-pointer text-left"
+                  className="text-[#18e299] hover:underline transition-colors cursor-pointer font-semibold"
                 >
-                  Solicitar Demostración
+                  Contáctanos
                 </button>
               </li>
             </ul>
           </div>
 
           {/* Links: Vista Técnica */}
-          <div>
-            <h4 className="text-white font-bold text-xs uppercase tracking-wider mb-4 font-mono">
-              Área Técnica & Tribunal
+          <div className="space-y-3">
+            <h4 className="font-bold text-white text-xs uppercase tracking-wider font-mono">
+              Arquitectura
             </h4>
-            <ul className="space-y-2.5">
+            <ul className="space-y-2">
               <li>
                 <button 
                   onClick={() => scrollTo('arquitectura')} 
-                  className="hover:text-white transition-colors cursor-pointer text-left flex items-center gap-1"
+                  className="hover:text-white transition-colors cursor-pointer flex items-center gap-1"
                 >
-                  <Cpu className="w-3 h-3 text-blue-400" />
-                  <span>Hero de Arquitectura</span>
+                  <Cpu className="w-3 h-3 text-[#18e299]" />
+                  <span>Diagramas C4</span>
                 </button>
               </li>
               <li>
                 <button 
                   onClick={() => scrollTo('tech-stack')} 
-                  className="hover:text-white transition-colors cursor-pointer text-left"
+                  className="hover:text-white transition-colors cursor-pointer"
                 >
-                  Stack Tecnológico (4 Capas)
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => scrollTo('c4-diagrams')} 
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Diagramas C4 & Hexagonal
+                  Stack Tecnológico
                 </button>
               </li>
               <li>
                 <button 
                   onClick={() => scrollTo('retos-tecnicos')} 
-                  className="hover:text-white transition-colors cursor-pointer text-left"
+                  className="hover:text-white transition-colors cursor-pointer"
                 >
-                  Retos BFS, MAX_PATH & Heap
+                  Retos de Ingeniería
                 </button>
               </li>
               <li>
                 <button 
-                  onClick={() => scrollTo('cicd')} 
-                  className="hover:text-white transition-colors cursor-pointer text-left"
+                  onClick={() => scrollTo('cicd-pipeline')} 
+                  className="hover:text-white transition-colors cursor-pointer"
                 >
-                  Canalización CI/CD
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => scrollTo('recursos-tecnicos')} 
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Recursos OpenAPI y Código
+                  Pipeline CI/CD
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Standards & Direct Access */}
-          <div>
-            <h4 className="text-white font-bold text-xs uppercase tracking-wider mb-4 font-mono">
-              Convocatorias & Ámbito
+          {/* Normativa y Cumplimiento */}
+          <div className="space-y-3">
+            <h4 className="font-bold text-white text-xs uppercase tracking-wider font-mono">
+              Conformidad
             </h4>
-            <ul className="space-y-2 text-slate-400">
-              <li>NextGenerationEU (PRTR)</li>
-              <li>Proyectos CDTI / Neotec</li>
-              <li>Red.es / Kit Digital</li>
-              <li>Fondos FEDER y FSE+</li>
-              <li>Convocatorias Autonómicas</li>
+            <ul className="space-y-2 text-neutral-400">
+              <li>Directivas CDTI I+D+i</li>
+              <li>Normas NextGenerationEU</li>
+              <li>Sedes Electrónicas BOE / BDNS</li>
+              <li>Estándar POSIX / NTFS MAX_PATH</li>
+              <li>Hash Criptográfico SHA-256</li>
             </ul>
           </div>
 
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-[11px] text-slate-500 text-center sm:text-left">
-            © {new Date().getFullYear()} Subventio by El Salto Adelante. Todos los derechos reservados. Software diseñado bajo estándares de alta rigurosidad documental.
-          </p>
+        <div className="pt-8 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#18e299]" />
+            <p className="text-[11px] text-neutral-400">
+              © {new Date().getFullYear()} Subventio. Todos los derechos reservados.
+            </p>
+          </div>
 
-          <button
-            onClick={() => scrollTo('inicio')}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition-colors cursor-pointer"
-          >
-            <ArrowUp className="w-3.5 h-3.5 text-blue-400" />
-            <span>Volver arriba</span>
-          </button>
+          <div className="flex items-center gap-6">
+            <span className="text-[11px] text-neutral-500 font-mono">
+              Sistemas operativos 99.98% uptime
+            </span>
+
+            <button
+              onClick={() => scrollTo('inicio')}
+              className="inline-flex items-center gap-1.5 text-xs text-neutral-400 hover:text-white transition-colors cursor-pointer"
+            >
+              <span>Subir al inicio</span>
+              <ArrowUp className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
 
       </div>

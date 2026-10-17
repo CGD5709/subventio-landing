@@ -1,8 +1,15 @@
 @import "tailwindcss";
 
 :root {
+  --font-serif: 'Newsreader', Georgia, Cambria, 'Times New Roman', serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --brand-mint: #18e299;
+  --brand-mint-deep: #0c8c5e;
+  --brand-emerald: #10b981;
+  --bg-main: #08090a;
+  --bg-card: rgba(16, 17, 20, 0.85);
+  --border-line: rgba(255, 255, 255, 0.08);
 }
 
 html {
@@ -11,9 +18,26 @@ html {
 }
 
 body {
-  background-color: #f8fafc;
-  color: #0f172a;
+  background-color: #ffffff;
+  color: #09090b;
   overflow-x: hidden;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background-color: #18e299;
+  color: #000000;
 }
 
 #root {
@@ -28,31 +52,86 @@ body {
   flex-direction: column;
 }
 
-/* Blueprint grid pattern for technical sections */
+/* Mintlify radiant grid and dot patterns */
 .bg-grid-pattern {
-  background-size: 32px 32px;
+  background-size: 40px 40px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
 }
 
 .bg-dot-pattern {
   background-size: 24px 24px;
-  background-image: radial-gradient(rgba(15, 23, 42, 0.08) 1.5px, transparent 1.5px);
+  background-image: radial-gradient(rgba(24, 226, 153, 0.15) 1.2px, transparent 1.2px);
 }
 
-/* Custom scrollbar */
+.bg-subtle-radial {
+  background: radial-gradient(circle at 50% 0%, rgba(24, 226, 153, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+}
+
+.mint-glow-box {
+  box-shadow: 0 0 50px -10px rgba(24, 226, 153, 0.25);
+}
+
+.mint-glow-text {
+  text-shadow: 0 0 20px rgba(24, 226, 153, 0.4);
+}
+
+/* Custom dark scrollbar with mint accent */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #08090a;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #262626;
   border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #0c8c5e;
+}
+
+/* Smooth Mintlify Animations */
+@keyframes floatHero {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(1.03);
+  }
+}
+
+.animate-float-hero {
+  animation: floatHero 7s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 5s ease-in-out infinite;
+}
+
+.transition-smooth {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-hover-mint {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover-mint:hover {
+  transform: translateY(-2px);
+  border-color: rgba(24, 226, 153, 0.35);
+  box-shadow: 0 12px 30px -10px rgba(24, 226, 153, 0.15);
 }
